@@ -35,7 +35,6 @@ export async function fetchFoodsFilterToCategory(category) {
   try {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     const result = await response.json();
-    console.log(result);
     return result.meals ? result.meals : [];
   } catch (error) {
     return [];
@@ -65,6 +64,36 @@ export async function fetchFoodRecommendation() {
 export async function fetchFoodRandom() {
   try {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    const result = await response.json();
+    return result.meals ? result.meals : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function fetchFoodIngredient() {
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const result = await response.json();
+    return result.meals ? result.meals : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function fetchFoodNationalities() {
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const result = await response.json();
+    return result.meals ? result.meals : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function fetchFoodsByNationalities(nationalities) {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationalities}`);
     const result = await response.json();
     return result.meals ? result.meals : [];
   } catch (error) {

@@ -6,7 +6,6 @@ import '../Styles/RecipesList.css';
 function RecipesList() {
   const { recipes } = useContext(RecipesContext);
   const MAXRECIPES = 12;
-
   return (
     recipes.length >= 1 && (
       <article className="recipesList">

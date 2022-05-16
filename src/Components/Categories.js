@@ -5,12 +5,14 @@ import { fetchFoodsFilterToCategory } from '../Api/foodsAPI';
 import { fetchDrinksFilterToCategory } from '../Api/drinksAPI';
 
 const MAXCATEGORIES = 5;
+const selected = 'btn-categories selected';
+const selectable = 'btn-categories selectable';
 
 function Categories(props) {
   const { type } = props;
   const { categoriesAPI,
     recipesAPI, setRecipes,
-    categories, setCategories } = useContext(RecipesContext);
+    categories, setCategories, redirect } = useContext(RecipesContext);
 
   const fetchFilterCategory = type === 'foods'
     ? async () => setRecipes(await fetchFoodsFilterToCategory(categories))
@@ -23,7 +25,7 @@ function Categories(props) {
       <button
         key={ id }
         type="button"
-        className="btn-categories"
+        className={ categories === strCategory ? selected : selectable }
         id={ `category-${index}` }
         name={ `category-${index}` }
         onClick={ () => setCategories(
@@ -39,18 +41,18 @@ function Categories(props) {
   useEffect(() => {
     if (categories !== '') {
       fetchFilterCategory(categories);
-    } else {
+    } else if (!redirect) {
       setRecipes(recipesAPI);
     }
   }, [categories]);
 
   return (
-    <div>
+    <div className="daddy-categories">
       <button
         type="button"
         onClick={ () => setCategories('') }
         data-testid="All-category-filter"
-        className="btn-categories"
+        className={ categories === '' ? selected : selectable }
       >
         All
       </button>
